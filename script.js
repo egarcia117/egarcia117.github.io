@@ -29,15 +29,3 @@ domReady(function () {
     );
     htmlscanner.render(onScanSuccess);
 });
-
-async function getCSV(url) {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-    }
-    
-    //const csvFile = await response.;
-
-    return response;
-}
