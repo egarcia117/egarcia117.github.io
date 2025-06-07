@@ -18,9 +18,18 @@ domReady(function () {
         //alert("You Qr is : " + decodeText, decodeResult);
         document.getElementById("data-display").textContent = `${decodeText}`;
 
-        var data = getCSV('furniture-inventory-dummy.csv');
-        document.getElementById("data-display").textContent = `${data.status}`;
+        fetch('furniture-inventory-dummy.csv')
+            .then(response => response.text())
+            .then(data => {
+                const arr = (data.split('\n'))
+                //alert(`${typeof(data)}`);
+                document.getElementById("data-display").textContent = `${arr[2]}`;
+            })
+            .catch(error => {
+                alert(`${error}`);
+            });
 
+        //document.getElementById("data-display").textContent = `${globalThis.csvData}`;
     }
 
     let htmlscanner = new Html5QrcodeScanner(
@@ -29,3 +38,4 @@ domReady(function () {
     );
     htmlscanner.render(onScanSuccess);
 });
+
