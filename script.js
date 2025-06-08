@@ -21,15 +21,17 @@ domReady(function () {
         fetch('furniture-inventory-dummy.csv')
             .then(response => response.text())
             .then(data => {
-                const arr = (data.split('\n'))
-                //alert(`${typeof(data)}`);
-                document.getElementById("data-display").textContent = `${arr[2]}`;
+                // Converts the csv into a 2D array
+                const arr = data.split('\n');
+                for (let i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].split(',');
+                }
+
+                //document.getElementById("data-display").textContent = `${arr[0][1]}`;
             })
             .catch(error => {
                 alert(`${error}`);
             });
-
-        //document.getElementById("data-display").textContent = `${globalThis.csvData}`;
     }
 
     let htmlscanner = new Html5QrcodeScanner(
