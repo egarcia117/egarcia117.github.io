@@ -32,6 +32,8 @@ domReady(function () {
                 decodeText = decodeText.split("-");
 
                 // Still need to handle when we have no entry found
+                var entry = null;
+
                 for (let i = 1; i < arr.length; i++){
                     if (arr[i][0] == decodeText[0]) {
                         var entry = arr[i];
@@ -41,8 +43,12 @@ domReady(function () {
 
                 var printOut = "";
 
-                for (let i = 0; i < arr[0].length; i++) {
-                    printOut += `${arr[0][i]}: ${entry[i]} \r\n`;
+                if (entry != null) {
+                    for (let i = 0; i < arr[0].length; i++) {
+                        printOut += `${arr[0][i]}: ${entry[i]} \r\n`;
+                    }
+                } else {
+                    printOut = "No entry found";
                 }
                 
                 document.getElementById("data-display").textContent = `${printOut}`;
@@ -53,7 +59,7 @@ domReady(function () {
     }
 
     let htmlscanner = new Html5QrcodeScanner(
-        "my-qr-reader",
+        "reader",
         { fps: 10, qrbos: 250 }
     );
     htmlscanner.render(onScanSuccess);
